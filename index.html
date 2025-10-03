@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CogniLink V1.2 PRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" 
+      rel="stylesheet"
+    >
+    <style>
+      body {
+        font-family: 'Cairo', 'Inter', sans-serif;
+        overflow: hidden; /* Prevent scrollbars on the body itself */
+      }
+      /* Markdown rendering styles */
+      .prose {
+        color: #d1d5db; /* gray-300 */
+      }
+      .prose a {
+        color: #93c5fd; /* blue-300 */
+      }
+      .prose strong {
+        color: #f9fafb; /* gray-50 */
+      }
+      .prose blockquote {
+        color: #9ca3af; /* gray-400 */
+        border-left-color: #4b5563; /* gray-600 */
+        padding-left: 1em;
+        margin-left: 0;
+      }
+      .prose ul > li::before {
+        background-color: #6b7280; /* gray-500 */
+      }
+      .prose pre {
+        background-color: #1f2937; /* gray-800 */
+        color: #d1d5db; /* gray-300 */
+        padding: 1em;
+        border-radius: 0.5rem;
+        font-family: 'Inter', monospace;
+      }
+      .prose code {
+        background-color: #374151; /* gray-700 */
+        color: #f3f4f6; /* gray-100 */
+        padding: 0.2em 0.4em;
+        margin: 0;
+        font-size: 85%;
+        border-radius: 3px;
+      }
+       .prose pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+        margin: 0;
+        font-size: inherit;
+        border-radius: 0;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0",
+    "react-markdown": "https://esm.sh/react-markdown@9.0.1",
+    "remark-gfm": "https://esm.sh/remark-gfm@4.0.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-900 text-white">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

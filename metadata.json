@@ -1,0 +1,7 @@
+{
+  "name": "12 of CogniLink V1.2 PRO",
+  "description": "A professional AI chat application allowing users to create and interact with customizable AI personas using the Google Gemini API. PRO features include markdown rendering, advanced AI temperature controls, image-based chat, copy-to-clipboard functionality, local storage persistence, and conversation export to Markdown.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
