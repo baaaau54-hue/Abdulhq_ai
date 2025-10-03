@@ -46,7 +46,7 @@ export const generateAvatarProfile = async (ai: GoogleGenAI, description: string
   `;
   try {
     const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-flash-latest",
         contents: prompt,
         // FIX: `safetySettings` must be a property of the `config` object.
         config: {
