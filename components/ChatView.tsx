@@ -139,9 +139,11 @@ export const ChatView: React.FC<ChatViewProps> = ({ avatar, chatSession, chatHis
         if (attachedFile) {
           const geminiPart = dataUriToGeminiPart(attachedFile.dataUri);
           if (geminiPart) {
-            // Add context for text files
+            // Add specific context for different file types
             if (attachedFile.mimeType.startsWith('text/')) {
-              parts.unshift({text: `The user has attached a file named "${attachedFile.name}". Please analyze its content.`})
+              parts.unshift({text: `The user has attached a text file named "${attachedFile.name}". Please analyze its content.`});
+            } else if (attachedFile.mimeType === 'application/pdf') {
+              parts.unshift({text: `The user has attached a PDF file named "${attachedFile.name}". Please analyze its content and answer any questions about it.`});
             }
             parts.push(geminiPart);
           }
@@ -300,7 +302,16 @@ export const ChatView: React.FC<ChatViewProps> = ({ avatar, chatSession, chatHis
         {displayedMessages.map((msg, index) => (
           <div key={index} className={`group relative flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div dir="auto" className={`max-w-xl px-5 py-3 rounded-2xl text-white ${msg.role === 'user' ? 'bg-indigo-600 rounded-bl-lg' : 'bg-slate-700 rounded-br-lg'}`}>
-              {msg.attachment && msg.attachment.mimeType.startsWith('image/') && <img src={msg.attachment.dataUri} alt="Chat content" className="rounded-lg mb-2 max-w-sm w-full" />}
+              {msg.attachment && (
+                msg.attachment.mimeType.startsWith('image/') ? (
+                  <img src={msg.attachment.dataUri} alt="Chat content" className="rounded-lg mb-2 max-w-sm w-full" />
+                ) : (
+                  <div className="flex items-center gap-3 bg-slate-600/50 rounded-lg p-3 mb-2 border border-slate-600">
+                    <DocumentTextIcon className="w-6 h-6 text-slate-400 flex-shrink-0" />
+                    <span className="text-sm text-slate-300 truncate font-mono">{msg.attachment.name}</span>
+                  </div>
+                )
+              )}
               {msg.content ? (
                 <div className="prose">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
@@ -368,7 +379,7 @@ export const ChatView: React.FC<ChatViewProps> = ({ avatar, chatSession, chatHis
             </div>
         )}
         <div className="relative">
-          <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*,text/plain,text/csv,text/markdown" className="hidden" />
+          <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*,text/plain,text/csv,text/markdown,application/pdf" className="hidden" />
           <textarea value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} placeholder="اكتب رسالتك..." dir="auto" rows={1} className="w-full bg-slate-700 text-slate-200 placeholder-slate-400 rounded-lg p-3 ps-36 pe-4 resize-none focus:ring-2 focus:ring-indigo-500 focus:outline-none transition duration-200" disabled={isStreaming} />
           <div className="absolute left-3 top-1/2 -translate-y-1/2 flex gap-2">
             <button onClick={() => fileInputRef.current?.click()} disabled={isStreaming} className="p-2 rounded-full text-slate-300 hover:bg-slate-600 disabled:text-slate-500 transition-colors duration-200" aria-label="Attach file">
